@@ -403,7 +403,9 @@ function aggregateTagsNodeToArtists(allArtists, callback) {
     //This function clean each tag of format the array of tagNode
     //It uses node text-miner package even if I had fancier using R or a python package for this task
     //I ignore all words who have a count of 0, trim, lower,
-    //and combine the count (it does not use Porter to stem it as I didn't have time to implement a StemCompletion algorithm)
+    //and combine the count (it does not use Porter to stem it as I didn't
+    //have time to implement a StemCompletion algorithm and it would have require 
+    //a music type dictionarry)
     //It returns an array in the format of tagNode
     //TODO stemCompletion algorithm
     function cleanTags(tags) {
@@ -446,7 +448,7 @@ function aggregateTagsNodeToArtists(allArtists, callback) {
         //dtm = dtm.removeSparseTermsFix(0.7).findFreqTerms(1);
 
         //As for testing now, I just use the frequencies that are gloablly high
-        dtm = dtm.findFreqTerms(100);
+        dtm = dtm.findFreqTerms(20);
         var result = [];
         dtm.map(function(obj) {
             result.push({
@@ -710,8 +712,8 @@ function computeComparaisonAPI(artistsSimilarities, tagsSimilarities, gbCb) {
                                     aElement = artist.similar.map(function(elem) {
                                         return elem.name
                                     });
-                                    x = aElementApi;
-                                    y = aElement;
+                                    x = toLowerArray(aElementApi);
+                                    y = toLowerArray(aElement);
                                     apiSimilarity = jaccard.index(x, y);
 
                                     //retreive it it
@@ -776,8 +778,8 @@ function computeComparaisonAPI(artistsSimilarities, tagsSimilarities, gbCb) {
                                 aElement = tagSim.similar.map(function(elem) {
                                     return elem.name
                                 });
-                                x = aElementApi;
-                                y = aElement;
+                                x = toLowerArray(aElementApi);
+                                y = toLowerArray(aElement);
                                 apiSimilarity = jaccard.index(x, y);
 
                                 //insert in our object
@@ -934,15 +936,15 @@ function calculateSimilarity(pearson, valMatrix, indexToName, nameToIndex) {
                             x.push(valMatrix[h][nameToIndex[xtag]]);
                             y.push(valMatrix[h][nameToIndex[ytag]]);
                         }
-
-                        if (ttest(x, y).valid()) {
+                        //Removing the test since we don't have enough data and C9 is really not happy
+                         //if (ttest(x, y,{alpha:0.9}).valid()) {
                             simVal = getPearsonsCorrelation(x, y);
 
                             matrixSimilarity[row][col] = round(simVal, 5);
-                        }
-                        else {
-                            invalidTest++;
-                        }
+                        //}
+                        //else {
+                            //invalidTest++;
+                        //}
 
                     }
                     else {
@@ -966,10 +968,10 @@ function calculateSimilarity(pearson, valMatrix, indexToName, nameToIndex) {
         }
     }
 
-    if (pearson) {
-        console.info("There was ", invalidTest, " who were ingored because of invalid p_value");
+    //if (pearson) {
+    //    console.info("There was ", invalidTest, " who were ingored because of invalid p_value");
 
-    }
+    //}
     return matrixSimilarity;
 }
 
@@ -1076,3 +1078,12 @@ function getPearsonsCorrelation(x, y) {
     if (isNaN(answer)) return 0;
     return answer;
 };
+
+
+//Array to lower case array of strings
+function toLowerArray(array){
+   return array.map(function(value) {
+
+    return value.toLowerCase();
+});
+}
