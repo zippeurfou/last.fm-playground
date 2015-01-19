@@ -1,0 +1,7 @@
+extends layout
+
+block content
+  h1= message
+  h2 Sorry Couldn't find your page maybe I don't know this tag/artist
+  h3= error.status
+  pre #{error.stack}
