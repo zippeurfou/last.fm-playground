@@ -14,10 +14,11 @@ block content
    <strong>method</strong>
    is in <i>["rank","get","list"]</i>, 
    <strong>object</strong>
-   is in <i>["tag","artist"]</i> field is the field you want to see if there is nothing it will ignore it
-   limit is the number of result you want to see
-   when you use rank you will need to use -field if you want decreasing.
-   If you use <i>get</i> you need to append a name
+   is in <i>["tag","artist"]</i> <strong>field</strong> is the field you want to see in the database 
+   (i.e. <i>name</i>) if there is nothing it will ignore it and return the whole object.
+   <strong>limit</strong> is the number of result you want to have.
+   When you use rank you will need to use <i><strong>-</strong>field</i> if you want it decreasing.
+   If you use <strong>get</strong> you need to put a field.
   code.  
        i.e. <a href="api/rank/tag/-apiSimilarity">baseurl/api/rank/tag/-apiSimilarity</a> will give you the my closest similarities tags with the last.fm api
        i.e. <a href="api/get/tag/electro">baseurl/api/get/tag/electro</a> will give you the electro tag
