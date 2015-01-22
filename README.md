@@ -1,7 +1,7 @@
 
 ##Introduction
 
-This is an example of the usage of the last.fm api.
+This is an example of the usage of the last.fm api. It was created in 4 days for a work sample for a job interview.
 
 ## What it does
 
