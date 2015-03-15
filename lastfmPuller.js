@@ -122,7 +122,7 @@ exports.run = function() {
         if (err) throw err;
         console.info("ended task successfully");
         mongoose.connection.close();
-    });
+   });
 }
 
 
@@ -448,7 +448,7 @@ function aggregateTagsNodeToArtists(allArtists, callback) {
         //dtm = dtm.removeSparseTermsFix(0.7).findFreqTerms(1);
 
         //As for testing now, I just use the frequencies that are gloablly high
-        dtm = dtm.findFreqTerms(20);
+        dtm = dtm.findFreqTerms(1);
         var result = [];
         dtm.map(function(obj) {
             result.push({
