@@ -14,7 +14,7 @@ This is an example of the usage of the last.fm api. It was created in 4 days for
 * Store everything in a mongodb database
 
 ## Bonus
-Just go [here](http://zippeurfou.ddns.net/node) ;-)
+Just go [here](http://192.99.43.191/lastfm/) ;-)
 
 ## Configure it
 
